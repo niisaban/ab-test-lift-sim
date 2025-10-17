@@ -1,3 +1,4 @@
+@"
 name: ci
 on:
   push:
@@ -25,4 +26,6 @@ jobs:
           pip install --prefer-binary -r requirements.txt
       - name: Run tests
         run: pytest -q tests --maxfail=1 -ra
+"@ | Set-Content -NoNewline .github\workflows\ci.yml
+
 
