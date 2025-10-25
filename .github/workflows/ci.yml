@@ -1,12 +1,12 @@
 name: ci
 on:
   push:
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'requirements.txt'
-      - '.github/workflows/ci.yml'
+    paths: ['src/**', 'tests/**', 'requirements.txt', '.github/workflows/ci.yml']
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -19,6 +19,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'             # speed-up
       - name: Install deps
         run: |
           python -m pip install --upgrade pip wheel setuptools
