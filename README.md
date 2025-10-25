@@ -1,3 +1,6 @@
+[![CI](https://github.com/niisaban/ab-test-lift-sim/actions/workflows/ci.yml/badge.svg)](https://github.com/niisaban/ab-test-lift-sim/actions/workflows/ci.yml)
+
+
 # A/B Test Lift — Simulation & Analysis
 
 **A/B = "A versus B", aka controlled online experiment**.  
