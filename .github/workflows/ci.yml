@@ -2,50 +2,42 @@ name: ci
 
 on:
   push:
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'requirements.txt'
-      - '.github/workflows/ci.yml'
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
-
-permissions:
-  contents: read
-
-# Cancel older runs on the same ref
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: pip
-          cache-dependency-path: requirements.txt
+          cache: 'pip'
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip wheel
-          pip install --prefer-binary -r requirements.txt
+          python -m pip install -U pip
+          pip install -r requirements.txt
 
       - name: Run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}   # 👈 makes `src/...` importable
         run: pytest -q --maxfail=1 -ra --junitxml=pytest.xml
 
-      - name: Upload JUnit
+      - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pytest.xml
           path: pytest.xml
-          if-no-files-found: ignore
+
 
 
 
