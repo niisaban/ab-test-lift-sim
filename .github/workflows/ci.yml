@@ -2,18 +2,13 @@ name: ci
 
 on:
   push:
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'requirements.txt'
-      - '.github/workflows/ci.yml'
+    branches: [ main ]
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# Cancel older runs on the same ref
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -23,30 +18,33 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip wheel
-          pip install --prefer-binary -r requirements.txt
+          python -m pip install -U pip
+          python -m pip install -r requirements.txt
+          # ensure pytest is available even if not in requirements.txt
+          python -m pip install -U pytest
 
       - name: Run tests
-        run: pytest -q --maxfail=1 -ra --junitxml=pytest.xml
+        run: |
+          pytest -q --maxfail=1 -ra --junitxml=pytest.xml
 
-      - name: Upload JUnit
+      # Always try to upload the JUnit report, but don't fail the job if missing
+      - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest.xml
+          name: pytest-report
           path: pytest.xml
           if-no-files-found: ignore
-
-
-
-
+          retention-days: 3
