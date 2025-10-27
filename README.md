@@ -30,16 +30,23 @@ pytest -q
 # Expose repo root to Python for this shell session
 $env:PYTHONPATH = (Get-Location).Path
 pytest -q --maxfail=1 -ra
+```
 
+#### macOS / Linux (bash/zsh, current session)
+```bash
 # Expose repo root to Python for this shell session
 export PYTHONPATH="$PWD"
 pytest -q --maxfail=1 -ra
+```
 
+#### (Optional) Windows CMD
+```bat
 :: Expose repo root to Python for this CMD session
 set PYTHONPATH=%CD%
 
 :: Run tests (quiet; stop early; show failure summary)
 pytest -q --maxfail=1 -ra
+```
 
 
 ## Project Structure
