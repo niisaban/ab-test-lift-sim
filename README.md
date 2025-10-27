@@ -25,17 +25,20 @@ pytest -q
 ```
 ### Run tests locally
 
-# Windows (PowerShell, current session)
+#### Windows (PowerShell, current session)
+```powershell
+# Expose repo root to Python for this shell session
 $env:PYTHONPATH = (Get-Location).Path
 pytest -q --maxfail=1 -ra
 
-# macOS / Linux (bash/zsh, current session)
+# Expose repo root to Python for this shell session
 export PYTHONPATH="$PWD"
 pytest -q --maxfail=1 -ra
 
-# (Optional) Windows CMD
-:: set PYTHONPATH for this session
+:: Expose repo root to Python for this CMD session
 set PYTHONPATH=%CD%
+
+:: Run tests (quiet; stop early; show failure summary)
 pytest -q --maxfail=1 -ra
 
 
