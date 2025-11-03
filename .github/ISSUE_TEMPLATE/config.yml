@@ -1,0 +1,23 @@
+
+---
+
+### 8) `.github/ISSUE_TEMPLATE/config.yml`
+
+> Keep **blank issues disabled** and surface quick doors to Docs + Q&A + Show & tell.  
+> (Use your exact category names; URL-encoding: space → `%20`, `&` → `%26`.)
+
+```yml
+blank_issues_enabled: false
+
+contact_links:
+  - name: "📚 Read the docs / README"
+    url: https://github.com/niisaban/ab-test-lift-sim#readme
+    about: Start here for setup, quickstart, and FAQs.
+
+  - name: "❓ Ask a question (Q&A on Discussions)"
+    url: https://github.com/niisaban/ab-test-lift-sim/discussions/new?category=Q%26A
+    about: Get help with setup, usage, power analysis, CUPED, or interpretation.
+
+  - name: "✨ Share a result (Show & tell)"
+    url: https://github.com/niisaban/ab-test-lift-sim/discussions/new?category=Show%20and%20tell
+    about: Post findings, charts, or tips for others to see.
