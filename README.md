@@ -89,4 +89,9 @@ ab-test-lift-sim/
 
 ---
 
-© You. Use freely for interviews/portfolio.
+### Get help / share results
+- ❓ Ask a question → [New Q&A](https://github.com/niisaban/ab-test-lift-sim/discussions/new?category=Q%26A)
+- ✨ Share a result → [New Show & Tell](https://github.com/niisaban/ab-test-lift-sim/discussions/new?category=Show%20and%20tell)
+
+
+© Use freely for interviews/portfolio.
